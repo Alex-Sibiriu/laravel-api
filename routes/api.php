@@ -18,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/projects', [ProjectController::class, 'index']);
 
 Route::get('/projects/search/{title}', [ProjectController::class, 'search']);
+
+Route::get('/projects/technologies', [ProjectController::class, 'technologies']);
+
+Route::get('/projects/types', [ProjectController::class, 'types']);
