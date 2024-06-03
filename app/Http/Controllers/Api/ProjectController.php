@@ -32,9 +32,22 @@ class ProjectController extends Controller
         return response()->json($types);
     }
 
-    public function search($title)
+    public function searchProjects(Request $request)
     {
-        $projects = Project::with('type', 'technologies')->where('title', 'like', '%' . $title . '%')->paginate(9);
+        $title = $request['title'];
+        $type = $request['type'];
+
+        if (!is_null($type)) {
+            $projects = Project::with('type', 'technologies')->where('type_id', $type)
+                ->where('title', 'like', '%' . $title . '%')
+                ->paginate(9);
+        } else {
+            $projects = Project::with('type', 'technologies')
+                ->where('title', 'like', '%' . $title . '%')
+                ->paginate(9);
+        }
+
+        $projects->appends(['title' => $title, 'type' => $type]);
 
         return response()->json($projects);
     }
