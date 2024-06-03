@@ -15,4 +15,11 @@ class ProjectController extends Controller
 
         return response()->json($projects);
     }
+
+    public function search($title)
+    {
+        $projects = Project::with('type', 'technologies')->where('title', 'like', '%' . $title . '%')->paginate(9);
+
+        return response()->json($projects);
+    }
 }
