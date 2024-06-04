@@ -12,7 +12,6 @@ class ProjectController extends Controller
 {
     public function index()
     {
-
         $projects = Project::with('type', 'technologies')->paginate(9);
 
         return response()->json($projects);
@@ -50,5 +49,19 @@ class ProjectController extends Controller
         $projects->appends(['title' => $title, 'type' => $type]);
 
         return response()->json($projects);
+    }
+
+    public function projectShow($slug)
+    {
+        $project = Project::where('slug', $slug)->with('type', 'technologies')->first();
+
+        if ($project->image) {
+            $project->image = asset('storage/' . $project->image);
+        } else {
+            $project->image = asset('storage/uploads/no-image.png');
+            $project->original_image_name = 'no-image';
+        }
+
+        return response()->json($project);
     }
 }

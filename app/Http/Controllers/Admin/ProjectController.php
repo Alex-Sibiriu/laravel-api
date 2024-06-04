@@ -127,6 +127,7 @@ class ProjectController extends Controller
         if (array_key_exists('image', $val_data)) {
             // Salvo l'immagine nella cartella uploads
             $image_path = Storage::put('uploads', $val_data['image']);
+            $val_data['image'] = $image_path;
 
             // Salvo il nome dell'immagine
             $original_name = $request->file('image')->getClientOriginalName();

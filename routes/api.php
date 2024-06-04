@@ -22,3 +22,5 @@ Route::get('/projects/technologies', [ProjectController::class, 'technologies'])
 Route::get('/projects/types', [ProjectController::class, 'types']);
 
 Route::get('/projects/search/{title?}/{type?}', [ProjectController::class, 'searchProjects']);
+
+Route::get('/projects/project-show/{slug}', [ProjectController::class, 'projectShow']);
